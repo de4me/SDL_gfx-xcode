@@ -247,6 +247,29 @@ int _shrinkSurfaceY(SDL_Surface * src, SDL_Surface * dst, int factorx, int facto
 	return (0);
 }
 
+/*!
+ \brief Linear interpolation macro
+*/
+#define LERP(T, A, B)  ( (A) + (((T) * ((B) - (A))) >> 16) )
+ 
+/*!
+ \brief Perform 2D linear interpolation of the four given values.
+  
+ \param a Horizontal ratio
+ \param b Vertical ratio
+ \param v00 Top-Left color value
+ \param v10 Top-Right color value
+ \param v01 Bottom-Left color value
+ \param v11 Bottom-Right color value
+ \return Interpolated color 
+*/
+static inline Uint8 _lerp2D(unsigned int a, unsigned int b, Uint8 v00, Uint8 v10, Uint8 v01, Uint8 v11)
+{
+ const int temp0 = LERP(a, v00, v10) & 0xFF;
+ const int temp1 = LERP(a, v01, v11) & 0xFF;
+ return LERP(b, temp0, temp1);
+}
+
 /*! 
 \brief Internal 32 bit Zoomer with optional anti-aliasing by bilinear interpolation.
 
@@ -264,28 +287,14 @@ Assumes dst surface was allocated with the correct dimensions.
 */
 int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy, int smooth)
 {
-	int x, y, sx, sy, *sax, *say, *csax, *csay, csx, csy, ex, ey, t1, t2, sstep, lx, ly;
+	int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast, *sanext, *csplast, csx, csy, ex, ey, t1, t2, sstep, sstepx, sstepy, lx, ly;
+	int csxmax, csymax;
 	tColorRGBA *c00, *c01, *c10, *c11, *cswap;
 	tColorRGBA *sp, *csp, *dp;
-	int dgap;
+	int spixelgap, dgap;
 
 	/*
-	* Variable setup 
-	*/
-	if (smooth) {
-		/*
-		* For interpolation: assume source dimension is one pixel 
-		* smaller to avoid overflow on right and bottom edge.     
-		*/
-		sx = (int) (65536.0 * (float) (src->w - 1) / (float) dst->w);
-		sy = (int) (65536.0 * (float) (src->h - 1) / (float) dst->h);
-	} else {
-		sx = (int) (65536.0 * (float) src->w / (float) dst->w);
-		sy = (int) (65536.0 * (float) src->h / (float) dst->h);
-	}
-
-	/*
-	* Allocate memory for row increments 
+	* Allocate memory for row/column increments 
 	*/
 	if ((sax = (int *) malloc((dst->w + 1) * sizeof(Uint32))) == NULL) {
 		return (-1);
@@ -298,30 +307,53 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 	/*
 	* Precalculate row increments 
 	*/
-	sp = csp = (tColorRGBA *) src->pixels;
-	dp = (tColorRGBA *) dst->pixels;
-
-	if (flipx) csp += (src->w-1);
-	if (flipy) csp += ((src->pitch/4)*(src->h-1));
-
+	if (smooth) {
+		sx = (int) (65536.0 * (float) (src->w - 1) / (float) (dst->w - 1));
+		sy = (int) (65536.0 * (float) (src->h - 1) / (float) (dst->h - 1));
+	} else {
+		sx = (int) (65536.0 * (float) (src->w) / (float) (dst->w));
+		sy = (int) (65536.0 * (float) (src->h) / (float) (dst->h));
+	}
+	
+	/* Maximum scaled source size */
+	ssx = (src->w << 16) - 1;
+	ssy = (src->h << 16) - 1;
+	
+	/* Precalculate horizontal row increments */
 	csx = 0;
 	csax = sax;
 	for (x = 0; x <= dst->w; x++) {
 		*csax = csx;
 		csax++;
-		csx &= 0xffff;
 		csx += sx;
+		
+		/* Guard from overflows */
+		if (csx > ssx) { 
+			csx = ssx; 
+		}
 	}
+	 
+	/* Precalculate vertical row increments */
 	csy = 0;
 	csay = say;
 	for (y = 0; y <= dst->h; y++) {
 		*csay = csy;
 		csay++;
-		csy &= 0xffff;
 		csy += sy;
+		
+		/* Guard from overflows */
+		if (csy > ssy) {
+			csy = ssy;
+		}
 	}
 
+	sp = (tColorRGBA *) src->pixels;
+	dp = (tColorRGBA *) dst->pixels;
 	dgap = dst->pitch - dst->w * 4;
+	spixelgap = src->pitch/4;
+
+	if (flipx) sp += (src->w-1);
+        if (flipy) sp += (spixelgap*(src->h-1));
 
 	/*
 	* Switch between interpolating and non-interpolating code 
@@ -331,139 +363,130 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 		/*
 		* Interpolating Zoom 
 		*/
-
-		/*
-		* Scan destination 
-		*/
 		csay = say;
-		ly = 0;
 		for (y = 0; y < dst->h; y++) {
-			/*
-			* Setup color source pointers 
-			*/
-			c00 = csp;
-			c01 = csp;
-			c01++;	    
-			c10 = csp;
-			c10 += src->pitch/4;
-			c11 = c10;
-			c11++;
-			if (flipx) {
-				cswap = c00; c00=c01; c01=cswap;
-				cswap = c10; c10=c11; c11=cswap;
-			}
-			if (flipy) {
-				cswap = c00; c00=c10; c10=cswap;
-				cswap = c01; c01=c11; c11=cswap;
-			}
-
+			csp = sp;
 			csax = sax;
-			lx = 0;
 			for (x = 0; x < dst->w; x++) {
+				/*
+				* Setup color source pointers 
+				*/
+				ex = (*csax & 0xffff);
+				ey = (*csay & 0xffff);				
+				if (flipx) {
+					sstepx = (*csax >> 16) >= 0;
+				} else {
+					sstepx = (*csax >> 16) < (src->w - 1);
+				}
+				if (flipy) {
+					sstepy = (*csay >> 16) >= 0;
+				} else {
+					sstepy = (*csay >> 16) < (src->h - 1);
+				}
+				c00 = sp;
+				c01 = sp;
+				c10 = sp;
+				if (sstepy) {
+				  if (flipy) {
+ 				   c10 -= spixelgap;
+ 				  } else {
+  				   c10 += spixelgap;
+ 				  }
+ 				}
+				c11 = c10;
+				if (sstepx) {
+				 if (flipx) {
+				  c01--;
+				  c11--;
+				 } else {
+				  c01++;
+				  c11++;
+				 }
+				}
+
 				/*
 				* Draw and interpolate colors 
 				*/
-				ex = (*csax & 0xffff);
-				ey = (*csay & 0xffff);
-				t1 = ((((c01->r - c00->r) * ex) >> 16) + c00->r) & 0xff;
-				t2 = ((((c11->r - c10->r) * ex) >> 16) + c10->r) & 0xff;
-				dp->r = (((t2 - t1) * ey) >> 16) + t1;
-				t1 = ((((c01->g - c00->g) * ex) >> 16) + c00->g) & 0xff;
-				t2 = ((((c11->g - c10->g) * ex) >> 16) + c10->g) & 0xff;
-				dp->g = (((t2 - t1) * ey) >> 16) + t1;
-				t1 = ((((c01->b - c00->b) * ex) >> 16) + c00->b) & 0xff;
-				t2 = ((((c11->b - c10->b) * ex) >> 16) + c10->b) & 0xff;
-				dp->b = (((t2 - t1) * ey) >> 16) + t1;
-				t1 = ((((c01->a - c00->a) * ex) >> 16) + c00->a) & 0xff;
-				t2 = ((((c11->a - c10->a) * ex) >> 16) + c10->a) & 0xff;
-				dp->a = (((t2 - t1) * ey) >> 16) + t1;
-
+				dp->r = _lerp2D(ex, ey, c00->r, c01->r, c10->r, c11->r);
+				dp->g = _lerp2D(ex, ey, c00->g, c01->g, c10->g, c11->g);
+				dp->b = _lerp2D(ex, ey, c00->b, c01->b, c10->b, c11->b);
+				dp->a = _lerp2D(ex, ey, c00->a, c01->a, c10->a, c11->a);
+									
 				/*
-				* Advance source pointers 
+				* Advance source pointer x
 				*/
-				csax++;
-				if (*csax > 0)
-				{
-					sstep = (*csax >> 16);
-					lx += sstep;
-					if (flipx) sstep = -sstep;
-					if (lx <= src->w)
-					{
-						c00 += sstep;
-						c01 += sstep;
-						c10 += sstep;
-						c11 += sstep;
-					}
+				salast = csax;
+				csax++;				
+				sstep = (*csax >> 16) - (*salast >> 16);
+				if (flipx) {
+				 sp -= sstep;
+				} else {
+				 sp += sstep;
 				}
-
+				
 				/*
-				* Advance destination pointer 
+				* Advance destination pointer x
 				*/
 				dp++;
 			}
-
 			/*
-			* Advance source pointer 
+			* Advance source pointer y
 			*/
+			salast = csay;
 			csay++;
-			if (*csay > 0)
-			{
-				sstep = (*csay >> 16);
-				ly += sstep;				
-				if (flipy) sstep = -sstep;
-				if (ly < src->h)
-				{
-					csp += (sstep * (src->pitch/4));
-				}
+			sstep = (*csay >> 16) - (*salast >> 16);
+			sstep *= spixelgap;
+			if (flipy) { 
+			 sp = csp - sstep;
+			} else {
+			 sp = csp + sstep;
 			}
 
 			/*
-			* Advance destination pointers 
+			* Advance destination pointer y
 			*/
 			dp = (tColorRGBA *) ((Uint8 *) dp + dgap);
 		}
 	} else {
-
 		/*
 		* Non-Interpolating Zoom 
-		*/
+		*/		
 		csay = say;
 		for (y = 0; y < dst->h; y++) {
-			sp = csp;
+			csp = sp;
 			csax = sax;
 			for (x = 0; x < dst->w; x++) {
 				/*
 				* Draw 
 				*/
 				*dp = *sp;
+				
 				/*
-				* Advance source pointers 
+				* Advance source pointer x
 				*/
-				csax++;
-				if (*csax > 0)
-				{
-					sstep = (*csax >> 16);
-					if (flipx) sstep = -sstep;
-					sp += sstep;
-				}
+				salast = csax;
+				csax++;				
+				sstep = (*csax >> 16) - (*salast >> 16);
+				if (flipx) sstep = -sstep;
+				sp += sstep;
+				
 				/*
-				* Advance destination pointer 
+				* Advance destination pointer x
 				*/
 				dp++;
 			}
 			/*
-			* Advance source pointer 
+			* Advance source pointer y
 			*/
+			salast = csay;
 			csay++;
-			if (*csay > 0)
-			{
-				sstep = (*csay >> 16) * (src->pitch/4);
-				if (flipy) sstep = -sstep;
-				csp += sstep;
-			}
+			sstep = (*csay >> 16) - (*salast >> 16);
+			sstep *= (src->pitch/4);
+			if (flipy) sstep = -sstep;			
+			sp = csp + sstep;
 
 			/*
-			* Advance destination pointers 
+			* Advance destination pointer y
 			*/
 			dp = (tColorRGBA *) ((Uint8 *) dp + dgap);
 		}
