@@ -65,7 +65,7 @@
     <Link>
       <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>..\..\SDL_gfx\Win32\Debug;..\..\SDL\VisualC\SDLmain\Win32\Debug;..\..\SDL\VisualC\SDL\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\sdlgfx\Debug;..\..\SDL_gfx\Win32\Debug;..\..\SDL\VisualC\SDLmain\Win32\Debug;..\..\SDL\VisualC\SDL\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

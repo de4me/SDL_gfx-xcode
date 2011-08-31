@@ -247,29 +247,6 @@ int _shrinkSurfaceY(SDL_Surface * src, SDL_Surface * dst, int factorx, int facto
 	return (0);
 }
 
-/*!
- \brief Linear interpolation macro
-*/
-#define LERP(T, A, B)  ( (A) + (((T) * ((B) - (A))) >> 16) )
- 
-/*!
- \brief Perform 2D linear interpolation of the four given values.
-  
- \param a Horizontal ratio
- \param b Vertical ratio
- \param v00 Top-Left color value
- \param v10 Top-Right color value
- \param v01 Bottom-Left color value
- \param v11 Bottom-Right color value
- \return Interpolated color 
-*/
-static inline Uint8 _lerp2D(unsigned int a, unsigned int b, Uint8 v00, Uint8 v10, Uint8 v01, Uint8 v11)
-{
- const int temp0 = LERP(a, v00, v10) & 0xFF;
- const int temp1 = LERP(a, v01, v11) & 0xFF;
- return LERP(b, temp0, temp1);
-}
-
 /*! 
 \brief Internal 32 bit Zoomer with optional anti-aliasing by bilinear interpolation.
 
@@ -287,11 +264,10 @@ Assumes dst surface was allocated with the correct dimensions.
 */
 int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy, int smooth)
 {
-	int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast, *sanext, *csplast, csx, csy, ex, ey, t1, t2, sstep, sstepx, sstepy, lx, ly;
-	int csxmax, csymax;
-	tColorRGBA *c00, *c01, *c10, *c11, *cswap;
+	int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast, csx, csy, ex, ey, cx, cy, sstep, sstepx, sstepy;
+	tColorRGBA *c00, *c01, *c10, *c11;
 	tColorRGBA *sp, *csp, *dp;
-	int spixelgap, dgap;
+	int spixelgap, spixelw, spixelh, dgap, t1, t2;
 
 	/*
 	* Allocate memory for row/column increments 
@@ -307,9 +283,11 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 	/*
 	* Precalculate row increments 
 	*/
+	spixelw = (src->w - 1);
+	spixelh = (src->h - 1);
 	if (smooth) {
-		sx = (int) (65536.0 * (float) (src->w - 1) / (float) (dst->w - 1));
-		sy = (int) (65536.0 * (float) (src->h - 1) / (float) (dst->h - 1));
+		sx = (int) (65536.0 * (float) spixelw / (float) (dst->w - 1));
+		sy = (int) (65536.0 * (float) spixelh / (float) (dst->h - 1));
 	} else {
 		sx = (int) (65536.0 * (float) (src->w) / (float) (dst->w));
 		sy = (int) (65536.0 * (float) (src->h) / (float) (dst->h));
@@ -352,8 +330,8 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 	dgap = dst->pitch - dst->w * 4;
 	spixelgap = src->pitch/4;
 
-	if (flipx) sp += (src->w-1);
-        if (flipy) sp += (spixelgap*(src->h-1));
+	if (flipx) sp += spixelw;
+    if (flipy) sp += (spixelgap * spixelh);
 
 	/*
 	* Switch between interpolating and non-interpolating code 
@@ -372,17 +350,11 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 				* Setup color source pointers 
 				*/
 				ex = (*csax & 0xffff);
-				ey = (*csay & 0xffff);				
-				if (flipx) {
-					sstepx = (*csax >> 16) >= 0;
-				} else {
-					sstepx = (*csax >> 16) < (src->w - 1);
-				}
-				if (flipy) {
-					sstepy = (*csay >> 16) >= 0;
-				} else {
-					sstepy = (*csay >> 16) < (src->h - 1);
-				}
+				ey = (*csay & 0xffff);
+				cx = (*csax >> 16);
+				cy = (*csay >> 16);
+				sstepx = cx < spixelw;
+				sstepy = cy < spixelh;
 				c00 = sp;
 				c01 = sp;
 				c10 = sp;
@@ -407,11 +379,18 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 				/*
 				* Draw and interpolate colors 
 				*/
-				dp->r = _lerp2D(ex, ey, c00->r, c01->r, c10->r, c11->r);
-				dp->g = _lerp2D(ex, ey, c00->g, c01->g, c10->g, c11->g);
-				dp->b = _lerp2D(ex, ey, c00->b, c01->b, c10->b, c11->b);
-				dp->a = _lerp2D(ex, ey, c00->a, c01->a, c10->a, c11->a);
-									
+				t1 = ((((c01->r - c00->r) * ex) >> 16) + c00->r) & 0xff;
+                t2 = ((((c11->r - c10->r) * ex) >> 16) + c10->r) & 0xff;
+                dp->r = (((t2 - t1) * ey) >> 16) + t1;
+                t1 = ((((c01->g - c00->g) * ex) >> 16) + c00->g) & 0xff;
+                t2 = ((((c11->g - c10->g) * ex) >> 16) + c10->g) & 0xff;
+                dp->g = (((t2 - t1) * ey) >> 16) + t1;
+                t1 = ((((c01->b - c00->b) * ex) >> 16) + c00->b) & 0xff;
+                t2 = ((((c11->b - c10->b) * ex) >> 16) + c10->b) & 0xff;
+                dp->b = (((t2 - t1) * ey) >> 16) + t1;
+                t1 = ((((c01->a - c00->a) * ex) >> 16) + c00->a) & 0xff;
+                t2 = ((((c11->a - c10->a) * ex) >> 16) + c10->a) & 0xff;
+                dp->a = (((t2 - t1) * ey) >> 16) + t1;				
 				/*
 				* Advance source pointer x
 				*/
@@ -481,7 +460,7 @@ int _zoomSurfaceRGBA(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy,
 			salast = csay;
 			csay++;
 			sstep = (*csay >> 16) - (*salast >> 16);
-			sstep *= (src->pitch/4);
+			sstep *= spixelgap;
 			if (flipy) sstep = -sstep;			
 			sp = csp + sstep;
 

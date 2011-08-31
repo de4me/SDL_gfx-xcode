@@ -4,7 +4,7 @@ TestRotozoom
 
 Test program for rotozoom routines
 
-Copyright (C) A. Schiffler, July 2001-2009, GPL
+Copyright (C) A. Schiffler, 2001-2011, GPL
 
 */
 
