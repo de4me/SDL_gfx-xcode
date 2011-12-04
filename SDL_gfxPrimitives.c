@@ -6568,7 +6568,7 @@ void _murphyWideline(SDL_gfxMurphyIterator *m, Sint16 x1, Sint16 y1, Sint16 x2, 
 	/* Initialisation */
 	m->u = x2 - x1;	/* delta x */
 	m->v = y2 - y1;	/* delta y */
-
+	
 	if (m->u < 0) {	/* swap to make sure we are in quadrants 1 or 4 */
 		temp = x1;
 		x1 = x2;
@@ -6736,10 +6736,17 @@ void _murphyWideline(SDL_gfxMurphyIterator *m, Sint16 x1, Sint16 y1, Sint16 x2, 
 */
 int thickLineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 width, Uint32 color)
 {	
+	int wh;
 	SDL_gfxMurphyIterator m;
 
 	if (dst == NULL) return -1;
 	if (width < 1) return -1;
+	
+	/* Special case: thick "point" */
+	if ((x1 == x2) && (y1 == y2)) {
+		wh = width / 2;
+		return boxColor(dst, x1 - wh, y1 - wh, x2 + width, y2 + width, color);		
+	}
 
 	m.dst = dst;
 	m.color = color;
