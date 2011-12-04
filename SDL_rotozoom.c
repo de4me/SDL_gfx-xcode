@@ -1340,8 +1340,8 @@ void zoomSurfaceSize(int width, int height, double zoomx, double zoomy, int *dst
 	/*
 	* Calculate target size 
 	*/
-	*dstwidth = (int) ((double) width * zoomx);
-	*dstheight = (int) ((double) height * zoomy);
+	*dstwidth = (int) round((double) width * zoomx);
+	*dstheight = (int) round((double) height * zoomy);
 	if (*dstwidth < 1) {
 		*dstwidth = 1;
 	}
