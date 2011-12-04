@@ -8,6 +8,8 @@ Ver 2.0.23 - in progress
   itsnotabigtruck)
 * Added OSX Xcode3+ template files to Other Builds collection
   (contributed by Vasyl)
+* Added various fixes and improvements contributed by folks on 
+  sourceforge.
 
 Ver 2.0.22 - Sat Sep 11 23:26:42 EDT 2010
 * Fixed line width calculation for normal and textured polygons

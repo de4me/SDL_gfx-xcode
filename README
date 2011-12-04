@@ -468,6 +468,8 @@ See the source code .c files for some sample code and implementation hints.
 - Zoom scaling factor rounding bugfix patch contributed by WanderWander
   Lairson Costa - thanks Wander.
 
+- Suggestions for speed improvements contributed by inkyankes - thanks.
+
 \section changelog_sec Change Log
 
 \verbinclude ChangeLog

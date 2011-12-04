@@ -536,6 +536,7 @@ int _zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy)
 			csx -= dst->w;
 			(*csax)++;
 		}
+		(*csax) = (*csax) * (flipx ? -1 : 1);
 		csax++;
 	}
 	csy = 0;
@@ -547,6 +548,7 @@ int _zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy)
 			csy -= dst->h;
 			(*csay)++;
 		}
+		(*csay) = (*csay) * (flipy ? -1 : 1);
 		csay++;
 	}
 
@@ -565,7 +567,7 @@ int _zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy)
 			/*
 			* Advance source pointers 
 			*/
-			sp += (*csax) * (flipx ? -1 : 1);
+			sp += (*csax);
 			csax++;
 			/*
 			* Advance destination pointer 
@@ -575,7 +577,7 @@ int _zoomSurfaceY(SDL_Surface * src, SDL_Surface * dst, int flipx, int flipy)
 		/*
 		* Advance source pointer (for row) 
 		*/
-		csp += ((*csay) * src->pitch) * (flipy ? -1 : 1);
+		csp += ((*csay) * src->pitch);
 		csay++;
 
 		/*
@@ -1340,8 +1342,8 @@ void zoomSurfaceSize(int width, int height, double zoomx, double zoomy, int *dst
 	/*
 	* Calculate target size 
 	*/
-	*dstwidth = (int) round((double) width * zoomx);
-	*dstheight = (int) round((double) height * zoomy);
+	*dstwidth = (int) floor(((double) width * zoomx) + 0.5);
+	*dstheight = (int) floor(((double) height * zoomy) + 0.5);
 	if (*dstwidth < 1) {
 		*dstwidth = 1;
 	}
