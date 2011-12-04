@@ -1,8 +1,8 @@
 /* 
 
-TestImageFilter
+TestImageFilter.c: test program for MMX filter routines
 
-Test program for MMX filter routines
+(C) A. Schiffler, 2006, zlib license
 
 */
 

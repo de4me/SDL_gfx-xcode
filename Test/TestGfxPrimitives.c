@@ -1,10 +1,9 @@
 /* 
 
-TestGfxPrimitives
+TestGfxPrimitives.c: test graphics primitive routines for 
+                     accuracy (visual) and speed.
 
-Test graphics primitive routines for accuracy (visual) and speed.
-
-Copyright (C) A. Schiffler, June 2001, GPL
+(C) A. Schiffler, June 2001, zlib License
 
 */
 

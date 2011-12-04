@@ -6,13 +6,11 @@
 
 \section contact_sec Contact and License
 
-Email aschiffler at ferzkopp.net to contact the author or better check
+Email aschiffler at ferzkopp dot net to contact the author or better check
 author's homepage at http://www.ferzkopp.net for the most up-to-date
 contact information.
 
-This library is licenced under the LGPL, see the file LICENSE for details. 
-
-LGPL (c) A. Schiffler
+This library is licenced under the zlib License, see the file LICENSE for details. 
 
 
 \section intro_sec Introduction
@@ -54,7 +52,7 @@ Note: All ___Color routines expect the color to be in the format 0xRRGGBBAA.
 
 \subsection notes_roto Notes on Rotozoomer
 
-The rotozoom code is not ASSEMBLY quality - but it should be fast enough 
+The rotozoom code is not ASM-speed quality, but it should be fast enough 
 even for some realtime effects if the CPU is good or bitmaps small.
 With interpolation the routines are typically used for pre-rendering stuff 
 in higher quality (i.e. smoothing) - that's also the reason why the API differs 
@@ -117,6 +115,12 @@ The compiler flag -DUSE_MMX toggles the conditional compile of MMX assembly.
 An assembler must be installed (i.e. "nasm").
 
 
+\subsection notes_blitters Notes on Custom Blitters
+
+The custom blitter functions provide (limited) support for surface
+compositing - that is surfaces can be blitted together, and then
+still blitted to the screen with transparency intact.
+
 \subsection platforms Supported Platforms
 
 \subsubsection platformlinux Unix/Linux
@@ -127,25 +131,32 @@ the usual configure;make;make install sequence.
 \subsubsection platformwindows Windows
  
 A Win32 target is available (VisualC6/7/8/9, mingw32, xmingw32 cross-compiler).
-The SDL_gfx.sln will open in VS2008 and VS2010 including express versions.
+The SDL_gfx.sln will open VS2010 (the old VS2008 .sln is also still included) 
+including express versions. 
+
 See "Other Builds" for additional makefiles (may be out of date).
 
-When using the cross-compiler (available on the author's homepage, slightly
+When using the cross-compiler (available on the author's homepage, very
 out of date), the build process generates .DLLs. You can use the command 
 line 'LIB.EXE' tool to generate VC6 compatible .LIB files for linking 
 purposes. 
 
 \subsubsection platformosx Mac OSX 
 
+The usual autotools build chain should be used. MacPorts or fink may 
+be required (that's what the author uses).
+
 Xcode is supported via templates. See "Other Builds" folder Xcode3+.zip -
 this template only supports SDL_gfx and not the tests. For this template, the
 Deployment Target (the lowest version to run on) is set to 10.5 and expects
 the SDL.framework preinstalled in some default location
-(either /Library/Frameworks, or ~/Library/Frameworks). Older targets are also reported to work (10.3+ native and Project Builder). 
+(either /Library/Frameworks, or ~/Library/Frameworks). 
+
+Older targets are also reported to work (10.3+ native and Project Builder). 
 
 \subsubsection platformqnx QNX
 
-QNX is reported to build well (see .diff in "Other Builds").
+QNX was reported to build (see .diff in "Other Builds").
 
 \subsubsection platformzune Zune
 
@@ -175,7 +186,7 @@ installed with the 'devel' RPM package. For example on Mandriva, run:
 
 Then run
 \verbatim
-	./autogen.sh	# (optional)
+	./autogen.sh	# (optional, recommended)
 	./configure
 	make
 	make install
@@ -190,7 +201,7 @@ path might need to be added to the file:
 Run the shell script 'nodebug.sh' before make, to patch the makefile 
 for optimized compilation:
 \verbatim
-	./autogen.sh	# (optional)
+	./autogen.sh	# (optional, recommended)
 	./configure
 	./nodebug.sh
 	make
@@ -223,9 +234,13 @@ i.e. to build on MacOSX 10.3+ use:
 	./configure --disable-mmx && make
 \endverbatim
 
-\subsection vs9 Windows (VC9)
+\subsection vs9 Windows (VC9, VS2010)
 
-Open solution file and review README.
+Open SDL_gfx.sln solution file and review README.
+
+\subsection vs8 Windows (VC8, VS2008)
+
+Open SDL_gfx_VS2008.sln solution file and review README.
 
 
 \subsection vc6 Windows (VC6/7)
@@ -313,16 +328,18 @@ SDL_gfx has been integrated with the following language interfaces:
 - Perl: http://sdl.perl.org
 - Python: http://www.pygame.org
 - C#: http://cs-sdl.sourceforge.net
+- Lua: http://www.egsl.retrogamecoding.org/
 
 \section test_sec Test Programs
 
 Change to the ./Test directory and run
 \verbatim
+	./autogen.sh
 	./configure
 	make
 \endverbatim
 to create several test programs for the libraries functions. This requires
-the library to be compiled and installed.
+the library to be previously compiled and installed.
 
 
 See the source code .c files for some sample code and implementation hints.

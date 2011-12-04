@@ -1,10 +1,8 @@
 /* 
 
-TestRotozoom 
+TestRotozoom.c: test program for rotozoom routines
 
-Test program for rotozoom routines
-
-Copyright (C) A. Schiffler, 2001-2011, GPL
+(C) A. Schiffler, 2001-2011, zlib License
 
 */
 

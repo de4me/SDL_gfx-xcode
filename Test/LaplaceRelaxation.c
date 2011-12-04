@@ -1,6 +1,6 @@
 /* 
 
-Laplace Relaxation 
+LaplaceRelaxation.c : Laplacian relaxation demo
 
 Demo Program that
 - loads an image
@@ -11,7 +11,7 @@ Demo Program that
 
 Very slow! :-) TODO: use imagefilter MMX routines
 
-Copyright (C) A. Schiffler, Sep 2010, GPL
+(C) A. Schiffler, Sep 2010, zlib License
 
 */
 

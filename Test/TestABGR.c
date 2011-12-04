@@ -1,10 +1,8 @@
 /* 
 
-TestABGR
+TestABGR.c: test GFX behavior on byteordering
 
-Test GFX behavior on byteordering
-
-(C) 2005, GPL
+(C) A. Schiffler, 2005, zlib License
 
 */
 
