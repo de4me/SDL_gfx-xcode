@@ -1403,6 +1403,9 @@ SDL_Surface *zoomSurface(SDL_Surface * src, double zoomx, double zoomy, int smoo
 			0xff000000,  0x00ff0000, 0x0000ff00, 0x000000ff
 #endif
 			);
+		if (rz_src == NULL) {
+			return NULL;
+		}
 		SDL_BlitSurface(src, NULL, rz_src, NULL);
 		src_converted = 1;
 		is32bit = 1;
@@ -1436,8 +1439,15 @@ SDL_Surface *zoomSurface(SDL_Surface * src, double zoomx, double zoomy, int smoo
 	}
 
 	/* Check target */
-	if (rz_dst == NULL)
+	if (rz_dst == NULL) {
+		/*
+		* Cleanup temp surface 
+		*/
+		if (src_converted) {
+			SDL_FreeSurface(rz_src);
+		}		
 		return NULL;
+	}
 
 	/* Adjust for guard rows */
 	rz_dst->h = dstheight;
