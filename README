@@ -462,6 +462,12 @@ See the source code .c files for some sample code and implementation hints.
 - OSX Xcode 3+ template ZIP contributed by marabus at meta dot ua - thanks
   Vasyl.
 
+- Memory leak/error check patch for zoomSurface contributed by 
+  RodolfoRG - thanks Rodolfo.
+
+- Zoom scaling factor rounding bugfix patch contributed by WanderWander
+  Lairson Costa - thanks Wander.
+
 \section changelog_sec Change Log
 
 \verbinclude ChangeLog
