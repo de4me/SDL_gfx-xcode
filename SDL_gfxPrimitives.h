@@ -46,7 +46,7 @@ extern "C" {
 
 #define SDL_GFXPRIMITIVES_MAJOR	2
 #define SDL_GFXPRIMITIVES_MINOR	0
-#define SDL_GFXPRIMITIVES_MICRO	23
+#define SDL_GFXPRIMITIVES_MICRO	24
 
 
 	/* ---- Function Prototypes */
