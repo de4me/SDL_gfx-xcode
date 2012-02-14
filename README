@@ -329,6 +329,7 @@ SDL_gfx has been integrated with the following language interfaces:
 - Python: http://www.pygame.org
 - C#: http://cs-sdl.sourceforge.net
 - Lua: http://www.egsl.retrogamecoding.org/
+- Oberon: http://sourceforge.net/projects/sdl-for-oberon/
 
 \section test_sec Test Programs
 
