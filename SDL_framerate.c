@@ -2,7 +2,7 @@
 
 SDL_framerate.c: framerate manager
 
-Copyright (C) 2001-2011  Andreas Schiffler
+Copyright (C) 2001-2012  Andreas Schiffler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -45,7 +45,8 @@ void SDL_initFramerate(FPSmanager * manager)
 	manager->framecount = 0;
 	manager->rate = FPS_DEFAULT;
 	manager->rateticks = (1000.0f / (float) FPS_DEFAULT);
-	manager->lastticks = SDL_GetTicks();
+	manager->baseticks = SDL_GetTicks();
+	manager->lastticks = manager->baseticks;
 }
 
 /*!
@@ -116,12 +117,15 @@ graphics/rendering loop. If the computer cannot keep up with the rate (i.e.
 drawing too slow), the delay is zero and the delay interpolation is reset.
 
 \param manager Pointer to the framerate manager.
+
+\return The time that passed since the last call to the function in ms.
 */
-void SDL_framerateDelay(FPSmanager * manager)
+Uint32 SDL_framerateDelay(FPSmanager * manager)
 {
 	Uint32 current_ticks;
 	Uint32 target_ticks;
 	Uint32 the_delay;
+	Uint32 time_passed;
 
 	/*
 	* No manager, no delay
@@ -132,8 +136,9 @@ void SDL_framerateDelay(FPSmanager * manager)
 	/*
 	* Initialize uninitialized manager 
 	*/
-	if (manager->lastticks == 0)
+	if (manager->baseticks == 0) {
 		SDL_initFramerate(manager);
+	}
 
 	/*
 	* Next frame 
@@ -144,13 +149,17 @@ void SDL_framerateDelay(FPSmanager * manager)
 	* Get/calc ticks 
 	*/
 	current_ticks = SDL_GetTicks();
-	target_ticks = manager->lastticks + (Uint32) ((float) manager->framecount * manager->rateticks);
+	time_passed = current_ticks - manager->lastticks;
+	manager->lastticks = current_ticks;
+	target_ticks = manager->baseticks + (Uint32) ((float) manager->framecount * manager->rateticks);
 
 	if (current_ticks <= target_ticks) {
 		the_delay = target_ticks - current_ticks;
 		SDL_Delay(the_delay);
 	} else {
 		manager->framecount = 0;
-		manager->lastticks = SDL_GetTicks();
+		manager->baseticks = SDL_GetTicks();
 	}
+	
+	return time_passed;
 }

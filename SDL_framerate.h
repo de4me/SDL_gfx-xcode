@@ -2,7 +2,7 @@
 
 SDL_framerate.h: framerate manager
 
-Copyright (C) 2001-2011  Andreas Schiffler
+Copyright (C) 2001-2012  Andreas Schiffler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -62,6 +62,7 @@ extern "C" {
 	typedef struct {
 		Uint32 framecount;
 		float rateticks;
+		Uint32 baseticks;
 		Uint32 lastticks;
 		Uint32 rate;
 	} FPSmanager;
@@ -87,7 +88,7 @@ extern "C" {
 	SDL_FRAMERATE_SCOPE int SDL_setFramerate(FPSmanager * manager, Uint32 rate);
 	SDL_FRAMERATE_SCOPE int SDL_getFramerate(FPSmanager * manager);
 	SDL_FRAMERATE_SCOPE int SDL_getFramecount(FPSmanager * manager);
-	SDL_FRAMERATE_SCOPE void SDL_framerateDelay(FPSmanager * manager);
+	SDL_FRAMERATE_SCOPE Uint32 SDL_framerateDelay(FPSmanager * manager);
 
 	/* --- */
 
