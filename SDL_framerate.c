@@ -118,7 +118,7 @@ drawing too slow), the delay is zero and the delay interpolation is reset.
 
 \param manager Pointer to the framerate manager.
 
-\return The time that passed since the last call to the function in ms.
+\return The time that passed since the last call to the function in ms. May return 0.
 */
 Uint32 SDL_framerateDelay(FPSmanager * manager)
 {
@@ -131,7 +131,7 @@ Uint32 SDL_framerateDelay(FPSmanager * manager)
 	* No manager, no delay
 	*/
 	if (manager == NULL)
-		return;
+		return 0;
 
 	/*
 	* Initialize uninitialized manager 
