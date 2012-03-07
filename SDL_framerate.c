@@ -30,6 +30,28 @@ Andreas Schiffler -- aschiffler at ferzkopp dot net
 #include "SDL_framerate.h"
 
 /*!
+\brief Internal wrapper to SDL_GetTicks that ensures a non-zero return value.
+
+\return The tick count.
+*/
+Uint32 _getTicks()
+{
+	Uint32 ticks = SDL_GetTicks();
+
+        /* 
+        * Since baseticks!=0 is used to track initialization
+        * we need to ensure that the tick count is always >0 
+        * since SDL_GetTicks may not have incremented yet and
+        * return 0 depending on the timing of the calls.
+        */
+	if (ticks == 0) {
+  		return 1;
+	} else {
+  		return ticks;
+	}
+}
+
+/*!
 \brief Initialize the framerate manager.
 
 Initialize the framerate manager, set default framerate of 30Hz and
@@ -45,8 +67,9 @@ void SDL_initFramerate(FPSmanager * manager)
 	manager->framecount = 0;
 	manager->rate = FPS_DEFAULT;
 	manager->rateticks = (1000.0f / (float) FPS_DEFAULT);
-	manager->baseticks = SDL_GetTicks();
+	manager->baseticks = _getTicks();
 	manager->lastticks = manager->baseticks;
+     
 }
 
 /*!
@@ -148,8 +171,7 @@ Uint32 SDL_framerateDelay(FPSmanager * manager)
 	/*
 	* Get/calc ticks 
 	*/
-	current_ticks = SDL_GetTicks();
-	time_passed = current_ticks - manager->lastticks;
+	current_ticks = _getTicks();
 	manager->lastticks = current_ticks;
 	target_ticks = manager->baseticks + (Uint32) ((float) manager->framecount * manager->rateticks);
 
@@ -158,7 +180,7 @@ Uint32 SDL_framerateDelay(FPSmanager * manager)
 		SDL_Delay(the_delay);
 	} else {
 		manager->framecount = 0;
-		manager->baseticks = SDL_GetTicks();
+		manager->baseticks = _getTicks();
 	}
 	
 	return time_passed;
