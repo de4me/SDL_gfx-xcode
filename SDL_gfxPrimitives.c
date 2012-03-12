@@ -417,12 +417,12 @@ int _putPixelAlpha(SDL_Surface *dst, Sint16 x, Sint16 y, Uint32 color, Uint8 alp
 				Bshift = format->Bshift;
 				Ashift = format->Ashift;
 
-				R = ((dc & Rmask) + (((((color & Rmask) - (dc & Rmask)) >> Rshift) * alpha >> 8) << Rshift)) & Rmask;
-				G = ((dc & Gmask) + (((((color & Gmask) - (dc & Gmask)) >> Gshift) * alpha >> 8) << Gshift)) & Gmask;
-				B = ((dc & Bmask) + (((((color & Bmask) - (dc & Bmask)) >> Bshift) * alpha >> 8) << Bshift)) & Bmask;
+				R = ((dc & Rmask) + (((((color & Rmask) >> Rshift) - ((dc & Rmask) >> Rshift)) * alpha >> 8) << Rshift)) & Rmask;
+				G = ((dc & Gmask) + (((((color & Gmask) >> Gshift) - ((dc & Gmask) >> Gshift)) * alpha >> 8) << Gshift)) & Gmask;
+				B = ((dc & Bmask) + (((((color & Bmask) >> Bshift) - ((dc & Bmask) >> Bshift)) * alpha >> 8) << Bshift)) & Bmask;
 				*pixel = R | G | B;
 				if (Amask!=0) {
-					A = ((dc & Amask) + (((((color & Amask) - (dc & Amask)) >> Ashift) * alpha >> 8) << Ashift)) & Amask;
+					A = ((dc & Amask) + (((((color & Amask) >> Ashift) - ((dc & Amask) >> Ashift)) * alpha >> 8) << Ashift)) & Amask;
 					*pixel |= A;
 				}
 			}
