@@ -701,6 +701,7 @@ int _filledRectAlpha(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 
 		{			/* Probably :-) 32-bpp */
 			Uint32 *row, *pixel;
 			Uint32 dR, dG, dB, dA;
+			Uint32 dc;
 
 			Rmask = format->Rmask;
 			Gmask = format->Gmask;
@@ -721,16 +722,16 @@ int _filledRectAlpha(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 
 				row = (Uint32 *) dst->pixels + y * dst->pitch / 4;
 				for (x = x1; x <= x2; x++) {
 					pixel = row + x;
-
-					R = ((*pixel & Rmask) + ((((dR - (*pixel & Rmask)) >> Rshift) * alpha >> 8) << Rshift)) & Rmask;
-					G = ((*pixel & Gmask) + ((((dG - (*pixel & Gmask)) >> Gshift) * alpha >> 8) << Gshift)) & Gmask;
-					B = ((*pixel & Bmask) + ((((dB - (*pixel & Bmask)) >> Bshift) * alpha >> 8) << Bshift)) & Bmask;
+					
+					dc = *pixel;
+					R = ((dc & Rmask) + (((((color & Rmask) >> Rshift) - ((dc & Rmask) >> Rshift)) * alpha >> 8) << Rshift)) & Rmask;
+					G = ((dc & Gmask) + (((((color & Gmask) >> Gshift) - ((dc & Gmask) >> Gshift)) * alpha >> 8) << Gshift)) & Gmask;
+					B = ((dc & Bmask) + (((((color & Bmask) >> Bshift) - ((dc & Bmask) >> Bshift)) * alpha >> 8) << Bshift)) & Bmask;
 					*pixel = R | G | B;
-					if (Amask!=0)
-					{
-						A = ((*pixel & Amask) + ((((dA - (*pixel & Amask)) >> Ashift) * alpha >> 8) << Ashift)) & Amask;
+					if (Amask!=0) {
+						A = ((dc & Amask) + (((((color & Amask) >> Ashift) - ((dc & Amask) >> Ashift)) * alpha >> 8) << Ashift)) & Amask;
 						*pixel |= A;
-					}					
+					}
 				}
 			}
 		}
