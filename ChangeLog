@@ -8,8 +8,9 @@ Ver 2.0.24 -
   Neil)
 * Fixed dramerate modules dependency on SDL_GetTicks returning a 
   value >0 (issue report contributed by Douglas)
-* fixed 32bpp blending function for BGRA (thanks for the test code
+* Fixed 32bpp blending function for BGRA (thanks for the test code
   and contributing a fix sabbetts/Jay)
+* Updated VS2010 solution file to use SDL-1.2 sources
 
 Ver 2.0.23 - Sat Dec  3 22:55:04 PST 2011
 * Updated sources to resolve some splint (static code analysis)

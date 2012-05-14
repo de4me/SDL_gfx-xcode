@@ -40,14 +40,14 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(TargetName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(TargetName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(TargetName)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(TargetName)\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\sdlgfx;..\..\SDL_gfx;..\..\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\sdlgfx;..\..\SDL_gfx;..\..\SDL-1.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -65,7 +65,7 @@
     <Link>
       <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>..\..\sdlgfx\Win32\Debug;..\..\SDL_gfx\Win32\Debug;..\..\SDL\VisualC\SDLmain\Win32\Debug;..\..\SDL\VisualC\SDL\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\sdlgfx\$(Platform)\$(Configuration);..\..\SDL_gfx\$(Platform)\$(Configuration);..\..\SDL-1.2\VisualC\SDLmain\$(Platform)\$(Configuration);..\..\SDL-1.2\VisualC\SDL\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -76,7 +76,8 @@
       <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "..\..\SDL\VisualC\SDL\$(Platform)\$(Configuration)\SDL.dll" "$(TargetDir)\SDL.dll"
+      <Command>
+copy /y "..\..\SDL-1.2\VisualC\SDL\$(Platform)\$(Configuration)\SDL.dll" "$(TargetDir)\SDL.dll"
 copy /y "..\$(Platform)\$(Configuration)\SDL_gfx.dll" "$(TargetDir)\SDL_gfx.dll"
       </Command>
     </PostBuildEvent>
@@ -101,7 +102,7 @@ copy /y "..\$(Platform)\$(Configuration)\SDL_gfx.dll" "$(TargetDir)\SDL_gfx.dll"
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_gfx.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\sdlgfx\Win32\Release;..\..\SDL_gfx\Win32\Release;..\..\SDL\VisualC\SDLmain\Win32\Release;..\..\SDL\VisualC\SDL\Win32\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\sdlgfx\$(Platform)\$(Configuration);..\..\SDL_gfx\$(Platform)\$(Configuration);..\..\SDL-1.2\VisualC\SDLmain\$(Platform)\$(Configuration);..\..\SDL-1.2\VisualC\SDL\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -114,7 +115,8 @@ copy /y "..\$(Platform)\$(Configuration)\SDL_gfx.dll" "$(TargetDir)\SDL_gfx.dll"
       <TargetMachine>NotSet</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "..\..\SDL\VisualC\SDL\$(Platform)\$(Configuration)\SDL.dll" "$(TargetDir)\SDL.dll"
+      <Command>
+copy /y "..\..\SDL-1.2\VisualC\SDL\$(Platform)\$(Configuration)\SDL.dll" "$(TargetDir)\SDL.dll"
 copy /y "..\$(Platform)\$(Configuration)\SDL_gfx.dll" "$(TargetDir)\SDL_gfx.dll"
       </Command>
     </PostBuildEvent>

@@ -62,7 +62,7 @@ void ClearScreen(SDL_Surface *screen)
 void Draw(SDL_Surface *screen)
 {
 	int i,rate,x,y,dx,dy,r,g,b;
-	Uint32 time_passed;
+	Uint32 time_passed = 0;
 	FPSmanager fpsm;
 	char message[64];
 	char message2[64];
