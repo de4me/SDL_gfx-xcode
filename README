@@ -490,6 +490,9 @@ See the source code .c files for some sample code and implementation hints.
 
 - Suggestions for speed improvements contributed by inkyankes - thanks.
 
+- Pixel blend routine patches contributed by mitja at lxnav dot com -
+  thanks Mitja.
+
 \section changelog_sec Change Log
 
 \verbinclude ChangeLog

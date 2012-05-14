@@ -11,6 +11,7 @@ Ver 2.0.24 -
 * Fixed 32bpp blending function for BGRA (thanks for the test code
   and contributing a fix sabbetts/Jay)
 * Updated VS2010 solution file to use SDL-1.2 sources
+* Fix for pixel blend routine (patch contributes by Mitjia)
 
 Ver 2.0.23 - Sat Dec  3 22:55:04 PST 2011
 * Updated sources to resolve some splint (static code analysis)
