@@ -1087,6 +1087,63 @@ void BenchmarkThickLine(SDL_Surface *screen)
 
 }
 
+void TestThickLineAccuracy(SDL_Surface *screen)
+{
+	int i;
+	char r,g,b;
+	int cx, cy;
+
+	/* Create random points */
+	srand((int)time(NULL));
+	InitRandomPoints();
+
+	/* Draw A=255 */
+	SetClip(screen,0,60,WIDTH/2,60+(HEIGHT-80)/2);
+	cx = WIDTH/4;
+	cy = 60+(HEIGHT-80)/4;
+	for (i=0; i<NUM_RANDOM; i += 10) {
+		thickLineRGBA(screen, cx, cy, rx1[i], ry1[i], lw[i], rr[i], rg[i], rb[i], 255);
+		pixelRGBA(screen, rx1[i], ry1[i], 255, 255, 255, 255);
+	}
+	pixelRGBA(screen, cx, cy, 255, 255, 255, 255);
+
+	/* Draw A=various */
+	SetClip(screen,WIDTH/2,60,WIDTH,60+(HEIGHT-80)/2);
+	cx = WIDTH/2 + WIDTH/4;
+	cy = 60+(HEIGHT-80)/4;
+	for (i=0; i<NUM_RANDOM; i += 10) {
+		thickLineRGBA(screen, cx, cy, rx2[i], ry1[i], lw[i], rr[i], rg[i], rb[i], ra[i]);
+		pixelRGBA(screen, rx2[i], ry1[i], 255, 255, 255, 255);
+	}
+	pixelRGBA(screen, cx, cy, 255, 255, 255, 255);
+
+	/* Draw A=various */
+	SetClip(screen,WIDTH/2,80+(HEIGHT-80)/2,WIDTH,HEIGHT);
+	cx = WIDTH/2 + WIDTH/4;
+	cy = 80 + (HEIGHT-80)/2 + (HEIGHT-80)/4;
+	for (i=0; i<NUM_RANDOM; i += 10) {
+		thickLineRGBA(screen, cx, cy, rx2[i], ry2[i], lw[i], rr[i], rg[i], rb[i], ra[i]);
+		pixelRGBA(screen, rx2[i], ry2[i], 255, 255, 255, 255);
+	}
+	pixelRGBA(screen, cx, cy, 255, 255, 255, 255);
+
+	/* Draw Colortest */
+	SetClip(screen,0,80+(HEIGHT-80)/2,WIDTH/2,HEIGHT);
+	cx = WIDTH/4;
+	cy = 80 + (HEIGHT-80)/2 + (HEIGHT-80)/4;
+	for (i=0; i<NUM_RANDOM; i += 10) {
+		if (rx1[i] < (WIDTH/6))  {
+			r=255; g=0; b=0; 
+		} else if (rx1[i] < (WIDTH/3) ) {
+			r=0; g=255; b=0; 
+		} else {
+			r=0; g=0; b=255; 
+		}
+		thickLineRGBA(screen, cx, cy, rx1[i], ry2[i], lw[i], r, g, b, 255);
+		pixelRGBA(screen, rx1[i], ry2[i], 255, 255, 255, 255);
+	}
+	pixelRGBA(screen, cx, cy, 255, 255, 255, 255);
+}
 
 void TestCircle(SDL_Surface *screen)
 {
@@ -3090,10 +3147,18 @@ int main(int argc, char *argv[])
 				 oldprim=curprim; 
 				 break;
 
+				 /* ---- Thick Line (accuracy) */ 
+			 case 31:
+				 ClearScreen(screen, "Thick Line (Accuracy)");
+				 TestThickLineAccuracy(screen);
+				 /* Next primitive */ 			  
+				 oldprim=curprim; 
+				 break;
+
 				 /* --- Wrap start*/
 			 case 0:
 				 oldprim=0;
-				 curprim=30;
+				 curprim=31;
 				 break;
 
 				 /* --- Wrap end */ 
