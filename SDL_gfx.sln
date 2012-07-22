@@ -25,6 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestShrink", "Test\TestShri
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaplaceRelaxation", "Test\LaplaceRelaxation.vcxproj", "{AE9876D3-6F6D-48C0-3DAF-EF578406BEDC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{582C0DBA-F50D-4F96-8EB4-07EBA29F9EA3}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\html.doxyfile = Docs\html.doxyfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

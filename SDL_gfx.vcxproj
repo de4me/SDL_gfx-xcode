@@ -127,6 +127,8 @@ copy /Y "$(ProjectDir)..\SDL-1.2\VisualC\SDL\$(Platform)\$(Configuration)\SDL.dl
     <None Include="ChangeLog">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="INSTALL" />
+    <None Include="README" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
