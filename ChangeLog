@@ -1,6 +1,9 @@
 CHANGES/VERSION
 ===============
 
+Ver 2.0.25 - TBD
+* TBD
+
 Ver 2.0.24 - Sun, Jul 22, 2012  9:27:29 AM
 * Removed some missed LGPL references
 * Fixed thick line swap bug (patch contributed by Thien-Thi)
