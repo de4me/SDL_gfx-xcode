@@ -7,6 +7,8 @@ Ver 2.0.25 - Sun, Oct 27, 2013  3:08:15 PM
 * Fixed bug in _aaline when x1>x2 and dy==0 (found by Yannick 
   Guesnet - thanks!)
 * Updated documentation.
+* Fixed header in SDL_gfxBlitFunc.h (reported by Jaders77 on
+  sourceforge - thanks!)
 
 Ver 2.0.24 - Sun, Jul 22, 2012  9:27:29 AM
 * Removed some missed LGPL references
