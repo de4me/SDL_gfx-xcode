@@ -1,8 +1,12 @@
 CHANGES/VERSION
 ===============
 
-Ver 2.0.25 - TBD
-* TBD
+Ver 2.0.25 - Sun, Oct 27, 2013  3:08:15 PM
+* Added patch for 32- and 64-bit GCC-compiled MMX support
+  (contributed by Sylvain Beucler, backported from SDL2_gfx)
+* Fixed bug in _aaline when x1>x2 and dy==0 (found by Yannick 
+  Guesnet - thanks!)
+* Updated documentation.
 
 Ver 2.0.24 - Sun, Jul 22, 2012  9:27:29 AM
 * Removed some missed LGPL references
