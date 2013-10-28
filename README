@@ -133,8 +133,8 @@ the usual configure;make;make install sequence.
 \subsubsection platformwindows Windows
  
 A Win32 target is available (VisualC6/7/8/9, mingw32, xmingw32 cross-compiler).
-The SDL_gfx.sln will open VS2010 (the old VS2008 .sln is also still included) 
-including express versions. 
+The SDL_gfx_VS2010.sln will open VS2010 (the old VS2008 .sln is also still included)
+including express versions.
 
 See "Other Builds" for additional makefiles (may be out of date).
 
@@ -238,7 +238,7 @@ i.e. to build on MacOSX 10.3+ use:
 
 \subsection vs9 Windows (VC9, VS2010)
 
-Open SDL_gfx.sln solution file and review README.
+Open SDL_gfx_VS2010.sln solution file and review README.
 
 \subsection vs8 Windows (VC8, VS2008)
 
@@ -492,6 +492,11 @@ See the source code .c files for some sample code and implementation hints.
 
 - Pixel blend routine patches contributed by mitja at lxnav dot com -
   thanks Mitja.
+
+- ImageFilter patches contributed by beuc at beuc dot net - thanks Sylvain.
+
+- Bug reports contributed by Yannick dot Guesnet at univ-rouen dot fr -
+- thanks Yannick.
 
 \section changelog_sec Change Log
 
