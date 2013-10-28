@@ -48,9 +48,8 @@ him for his work.
 #  ifdef USE_MMX
 #    include <mmintrin.h>
 #  endif
-#  include <SDL_cpuinfo.h>
 #endif
-
+#include <SDL_cpuinfo.h>
 #include "SDL_imageFilter.h"
 
 /*!
@@ -77,8 +76,6 @@ static int SDL_imageFilterUseMMX = 1;
 */
 int SDL_imageFilterMMXdetect(void)
 {
-	unsigned int mmx_bit;
-
 	/* Check override flag */
 	if (SDL_imageFilterUseMMX == 0) {
 		return (0);
@@ -863,7 +860,6 @@ int SDL_imageFilterMultNor(unsigned char *Src1, unsigned char *Src2, unsigned ch
 {
 	unsigned int i, istart;
 	unsigned char *cursrc1, *cursrc2, *curdst;
-	int result;
 
 	/* Validate input parameters */
 	if ((Src1 == NULL) || (Src2 == NULL) || (Dest == NULL))
@@ -1551,7 +1547,6 @@ int SDL_imageFilterDiv(unsigned char *Src1, unsigned char *Src2, unsigned char *
 {
 	unsigned int i, istart;
 	unsigned char *cursrc1, *cursrc2, *curdst;
-	int result;
 
 	/* Validate input parameters */
 	if ((Src1 == NULL) || (Src2 == NULL) || (Dest == NULL))
