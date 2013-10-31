@@ -65,12 +65,13 @@ SDL_gfx demo applications and source code.
 
 %build
 ./autogen.sh
-# aclocal
 %define _includedir /usr/include
 %configure
 CFLAGS=$RPM_OPT_FLAGS make
+CFLAGS=$RPM_OPT_FLAGS make install
 
 cd Test 
+./autogen.sh
 CFLAGS="-I../" LDFLAGS="-L../.libs/" ./configure
 make
 cd ..
@@ -79,7 +80,8 @@ cd ..
 %makeinstall
 
 install -m755 -d $RPM_BUILD_ROOT%{_datadir}/SDL_gfx-demos
-cp Test/* $RPM_BUILD_ROOT%{_datadir}/SDL_gfx-demos
+cp Test/*.bmp $RPM_BUILD_ROOT%{_datadir}/SDL_gfx-demos
+for i in TestABGR TestFonts TestFramerate TestGfxBlit TestGfxPrimitives TestGfxTexture TestImageFilter TestRotozoom TestShrink; do cp Test/$i $RPM_BUILD_ROOT%{_datadir}/SDL_gfx-demos; done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
