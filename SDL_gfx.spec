@@ -23,7 +23,7 @@ surfaces.
 
 The current components of the SDL_gfx library are:
 
-   * Graphic Primitives (SDL_gfxPrimitves.h)
+   * Graphic Primitives (SDL_gfxPrimitives.h)
    * Rotozoomer (SDL_rotozoom.h)
    * Framerate control (SDL_framerate.h)
    * MMX image filters (SDL_imageFilter.h)
@@ -44,7 +44,7 @@ surfaces.
 
 The current components of the SDL_gfx library are:
 
-   * Graphic Primitives (SDL_gfxPrimitves.h)
+   * Graphic Primitives (SDL_gfxPrimitives.h)
    * Rotozoomer (SDL_rotozoom.h)
    * Framerate control (SDL_framerate.h)
    * MMX image filters (SDL_imageFilter.h)
