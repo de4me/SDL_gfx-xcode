@@ -1,6 +1,11 @@
 CHANGES/VERSION
 ===============
 
+Ver 2.0.26 -
+* Updated version numbers for next release
+* Included patch for CMake builds against SDL2 (contributed by 
+  Carles Pages - thanks Carles)
+
 Ver 2.0.25 - Sun, Oct 27, 2013  3:08:15 PM
 * Added patch for 32- and 64-bit GCC-compiled MMX support
   (contributed by Sylvain Beucler, backported from SDL2_gfx)

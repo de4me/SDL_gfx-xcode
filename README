@@ -21,6 +21,8 @@ SDL Surfaces and adding a couple other useful functions for zooming
 images for example and doing basic image processing on byte arrays.
 
 Note that SDL_gfx is compatible with SDL version 1.2 (not SDL2).
+A contributed patch to enable compilation of SDL_gfx against SDL2 
+with CMake is provided in the "Other Builds" folder.
 
 The current components of the SDL_gfx library are:
 - Graphic Primitives (SDL_gfxPrimitives.h, SDL_gfxPrimitives.c)

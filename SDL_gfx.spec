@@ -1,5 +1,5 @@
 %define prefix  %{_prefix}
-%define version 2.0.25
+%define version 2.0.26
 %define release 1
 %define _unpackaged_files_terminate_build 0
 
@@ -10,7 +10,7 @@ Release: %{release}
 License: ZLIB
 Group: System Environment/Libraries
 Prefix: %{prefix}
-Source: http://www.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-2.0.25.tar.gz
+Source: http://www.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-2.0.26.tar.gz
 Packager: Danny Sung <dannys at mail.com>
 Vendor: Andreas Schiffler <aschiffler at ferzkopp.net>
 BuildRoot: /tmp/%{name}-root-%{version}
