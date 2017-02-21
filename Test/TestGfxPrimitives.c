@@ -187,15 +187,15 @@ void ClearScreen(SDL_Surface *screen, char *title)
 	strncpy(titletext,"Current Primitive: ",256);
 	strncat(titletext,title,256);
 	strncat(titletext,"  -  Click to continue. Key to Quit.",256);
-	stringRGBA (screen, WIDTH/2-4*strlen(titletext),10-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/2-4*(Sint16)strlen(titletext),10-4,titletext,255,255,255,255);
 	strncpy(titletext,"A=255 on Black",256);
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),50-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),50-4,titletext,255,255,255,255);
 	strncpy(titletext,"A=0-254 on Black",256);
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),50-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),50-4,titletext,255,255,255,255);
 	strncpy(titletext,"A=255, Color Test",256);
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),(HEIGHT-40)/2+50-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),(HEIGHT-40)/2+50-4,titletext,255,255,255,255);
 	strncpy(titletext,"A=0-254 on Color",256);
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),(HEIGHT-40)/2+50-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),(HEIGHT-40)/2+50-4,titletext,255,255,255,255);
 }
 
 /* ======== Test and Benchmark routines ======= */
@@ -261,7 +261,7 @@ void BenchmarkPixel(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=100;
@@ -277,7 +277,7 @@ void BenchmarkPixel(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestHline(SDL_Surface *screen)
@@ -341,7 +341,7 @@ void BenchmarkHline(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=100;
@@ -357,7 +357,7 @@ void BenchmarkHline(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -422,7 +422,7 @@ void BenchmarkVline(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=100;
@@ -438,7 +438,7 @@ void BenchmarkVline(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -503,7 +503,7 @@ void BenchmarkRectangle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -519,7 +519,7 @@ void BenchmarkRectangle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestRoundedRectangle(SDL_Surface *screen)
@@ -583,7 +583,7 @@ void BenchmarkRoundedRectangle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -599,7 +599,7 @@ void BenchmarkRoundedRectangle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestRoundedBox(SDL_Surface *screen)
@@ -663,7 +663,7 @@ void BenchmarkRoundedBox(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -679,7 +679,7 @@ void BenchmarkRoundedBox(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/4)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestBoxTwo(SDL_Surface *screen)
@@ -743,7 +743,7 @@ void BenchmarkBoxTwo(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=50;
@@ -759,7 +759,7 @@ void BenchmarkBoxTwo(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -824,7 +824,7 @@ void BenchmarkBox(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=1;
@@ -840,7 +840,7 @@ void BenchmarkBox(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -905,7 +905,7 @@ void BenchmarkLine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -921,7 +921,7 @@ void BenchmarkLine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -986,7 +986,7 @@ void BenchmarkAALine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1002,7 +1002,7 @@ void BenchmarkAALine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/2)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -1067,7 +1067,7 @@ void BenchmarkThickLine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/5)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -1083,7 +1083,7 @@ void BenchmarkThickLine(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)((NUM_RANDOM/5)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 }
 
@@ -1206,7 +1206,7 @@ void BenchmarkCircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1222,7 +1222,7 @@ void BenchmarkCircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestAACircle(SDL_Surface *screen)
@@ -1286,7 +1286,7 @@ void BenchmarkAACircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1302,7 +1302,7 @@ void BenchmarkAACircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestFilledCircle(SDL_Surface *screen)
@@ -1366,7 +1366,7 @@ void BenchmarkFilledCircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1382,7 +1382,7 @@ void BenchmarkFilledCircle(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestEllipse(SDL_Surface *screen)
@@ -1446,7 +1446,7 @@ void BenchmarkEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1462,7 +1462,7 @@ void BenchmarkEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestAAEllipse(SDL_Surface *screen)
@@ -1526,7 +1526,7 @@ void BenchmarkAAEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1542,7 +1542,7 @@ void BenchmarkAAEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestFilledEllipse(SDL_Surface *screen)
@@ -1606,7 +1606,7 @@ void BenchmarkFilledEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1622,7 +1622,7 @@ void BenchmarkFilledEllipse(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestArc(SDL_Surface *screen)
@@ -1686,7 +1686,7 @@ void BenchmarkArc(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1702,7 +1702,7 @@ void BenchmarkArc(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestPie(SDL_Surface *screen)
@@ -1766,7 +1766,7 @@ void BenchmarkPie(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1782,7 +1782,7 @@ void BenchmarkPie(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestFilledPie(SDL_Surface *screen)
@@ -1846,7 +1846,7 @@ void BenchmarkFilledPie(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -1862,7 +1862,7 @@ void BenchmarkFilledPie(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestTrigon(SDL_Surface *screen)
@@ -1930,7 +1930,7 @@ void BenchmarkTrigon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -1946,7 +1946,7 @@ void BenchmarkTrigon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestTexturedTrigon(SDL_Surface *screen)
@@ -2033,7 +2033,7 @@ void BenchmarkTexturedTrigon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=255 */
 	boxRGBA(texture,0,0,1,1,255,255,255,255); 
@@ -2050,7 +2050,7 @@ void BenchmarkTexturedTrigon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4* (Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	SDL_FreeSurface(texture);
 }
@@ -2124,7 +2124,7 @@ void BenchmarkSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -2140,7 +2140,7 @@ void BenchmarkSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestPolygon(SDL_Surface *screen)
@@ -2212,7 +2212,7 @@ void BenchmarkPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -2228,7 +2228,7 @@ void BenchmarkPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestAAPolygon(SDL_Surface *screen)
@@ -2300,7 +2300,7 @@ void BenchmarkAAPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=2;
@@ -2316,7 +2316,7 @@ void BenchmarkAAPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 
@@ -2389,7 +2389,7 @@ void BenchmarkFilledPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -2405,7 +2405,7 @@ void BenchmarkFilledPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestFilledSquarePolygon(SDL_Surface *screen)
@@ -2478,7 +2478,7 @@ void BenchmarkFilledSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -2495,7 +2495,7 @@ void BenchmarkFilledSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 void TestTexturedPolygon(SDL_Surface *screen)
@@ -2575,7 +2575,7 @@ void BenchmarkTexturedPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM/2-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=5;
@@ -2592,7 +2592,7 @@ void BenchmarkTexturedPolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM/2-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	SDL_FreeSurface(texture);
 }
@@ -2688,7 +2688,7 @@ void BenchmarkTexturedSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw no shift */
 	repeat=10;
@@ -2705,7 +2705,7 @@ void BenchmarkTexturedSquarePolygon(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(NUM_RANDOM*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	SDL_FreeSurface(texture);
 }
@@ -2779,7 +2779,7 @@ void BenchmarkBezier(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 
 	/* Draw A=various */
 	repeat=10;
@@ -2795,7 +2795,7 @@ void BenchmarkBezier(SDL_Surface *screen)
 	/* Results */
 	SetClip(screen,0,0,WIDTH-1,HEIGHT-1);
 	sprintf (titletext, "%.0f per sec",1000.0*(float)(((NUM_RANDOM-3)/3)*repeat)/(float)(time2-time1));
-	stringRGBA (screen, 3*WIDTH/4-4*strlen(titletext),30-4,titletext,255,255,255,255);
+	stringRGBA (screen, 3*WIDTH/4-4*(Sint16)strlen(titletext),30-4,titletext,255,255,255,255);
 }
 
 /* ======== Main Program ======= */

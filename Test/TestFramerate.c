@@ -103,10 +103,10 @@ void Draw(SDL_Surface *screen)
 		ClearScreen(screen);
 		
 		/* Messages */
-		stringRGBA (screen, WIDTH/2-4*strlen(message),HEIGHT-12,message,255,255,255,255);
+		stringRGBA (screen, WIDTH/2-4*(Sint16)strlen(message),HEIGHT-12,message,255,255,255,255);
 		if (time_passed > 0) {
 			sprintf(message2, "Delay is %i ms / Measured framerate %i Hz ...", time_passed, 1000 / time_passed); 
-			stringRGBA (screen, WIDTH/2-4*strlen(message2),HEIGHT-24,message2,255,255,255,255);
+			stringRGBA (screen, WIDTH/2-4*(Sint16)strlen(message2),HEIGHT-24,message2,255,255,255,255);
 		}
 
 		/* Move */

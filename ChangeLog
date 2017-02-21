@@ -1,10 +1,12 @@
 CHANGES/VERSION
 ===============
 
-Ver 2.0.26 -
+Ver 2.0.26 - Mon, Feb 20, 2017  8:31:57 PM
 * Updated version numbers for next release
 * Included patch for CMake builds against SDL2 (contributed by 
   Carles Pages - thanks Carles)
+* Fixed bug in rotozoomSurfaceSizeTrig (thanks hydren)
+* added VS2015 solution files.
 
 Ver 2.0.25 - Sun, Oct 27, 2013  3:08:15 PM
 * Added patch for 32- and 64-bit GCC-compiled MMX support
