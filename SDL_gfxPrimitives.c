@@ -3177,22 +3177,24 @@ int arcColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Si
 		return(0);
 	}  
 
-	// Octant labelling
-	//      
-	//  \ 5 | 6 /
-	//   \  |  /
-	//  4 \ | / 7
-	//     \|/
-	//------+------ +x
-	//     /|\
-	//  3 / | \ 0
-	//   /  |  \
-	//  / 2 | 1 \
-	//      +y
+	/*
+	 Octant labelling
+	      
+	  \ 5 | 6 /
+	   \  |  /
+	  4 \ | / 7
+	     \|/
+	------+------ +x
+	     /|\
+	  3 / | \ 0
+	   /  |  \
+	  / 2 | 1 \
+	      +y
 
-	// Initially reset bitmask to 0x00000000
-	// the set whether or not to keep drawing a given octant.
-	// For example: 0x00111100 means we're drawing in octants 2-5
+	 Initially reset bitmask to 0x00000000
+	 the set whether or not to keep drawing a given octant.
+	 For example: 0x00111100 means we're drawing in octants 2-5
+	*/
 	drawoct = 0; 
 
 	/*
