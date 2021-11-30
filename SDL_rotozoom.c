@@ -83,14 +83,10 @@ to a situation where the program can segfault.
 Uint32 _colorkey(SDL_Surface *src)
 {
 	Uint32 key = 0; 
-#if (SDL_MINOR_VERSION == 3)
-	SDL_GetColorKey(src, &key);
-#else
 	if (src) 
 	{
 		key = src->format->colorkey;
 	}
-#endif
 	return key;
 }
 
