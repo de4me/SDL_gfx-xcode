@@ -19,21 +19,17 @@ Very slow! :-) TODO: use imagefilter MMX routines
 #include <stdio.h>
 #include <string.h>
 
-#include "SDL.h"
-
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
-#include "SDL_gfxPrimitives.h"
-#include "SDL_rotozoom.h"
-#include "SDL_imageFilter.h"
 #ifndef bcmp
 #define bcmp(s1, s2, n) memcmp ((s1), (s2), (n))
 #endif
-#else
-#include "SDL/SDL_gfxPrimitives.h"
-#include "SDL/SDL_rotozoom.h"
-#include "SDL/SDL_imageFilter.h"
 #endif
+
+#include "SDL.h"
+#include "SDL_gfxPrimitives.h"
+#include "SDL_rotozoom.h"
+#include "SDL_imageFilter.h"
 
 int iterations = 400;
 int contours = 20;

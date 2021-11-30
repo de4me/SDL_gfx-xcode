@@ -14,12 +14,7 @@ TestGfxPrimitives.c: test graphics primitive routines for
 #include <time.h>
 
 #include "SDL.h"
-
-#ifdef WIN32
 #include "SDL_gfxPrimitives.h"
-#else
-#include "SDL/SDL_gfxPrimitives.h"
-#endif
 
 #define WIDTH	640
 #define HEIGHT	480

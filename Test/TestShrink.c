@@ -6,18 +6,16 @@ TestShrink.c: test program for shrink routines
 
 */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "SDL.h"
-
-#ifdef WIN32
-#include <windows.h>
 #include "SDL_rotozoom.h"
-#else
-#include "SDL/SDL_rotozoom.h"
-#endif
 
 void HandleEvent()
 {
@@ -83,7 +81,6 @@ void ShrinkPicture (SDL_Surface *screen, SDL_Surface *picture)
 
 		}
 	}
-
 }
 
 

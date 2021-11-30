@@ -12,17 +12,15 @@ TestImageFilter.c: test program for MMX filter routines
 #include <string.h>
 #include <time.h>
 
-#include "SDL.h"
-
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
-#include "SDL_imageFilter.h"
 #ifndef bcmp
 #define bcmp(s1, s2, n) memcmp ((s1), (s2), (n))
 #endif
-#else
-#include "SDL/SDL_imageFilter.h"
 #endif
+
+#include "SDL.h"
+#include "SDL_imageFilter.h"
 
 #define SRC_SIZE 23
 

@@ -13,8 +13,6 @@ dnl SDL version required
 SDL_VERSION=1.2.0
 
 dnl Check for compilers
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
 AC_PROG_MAKE_SET
 AC_PROG_CC
 AC_PROG_CXX

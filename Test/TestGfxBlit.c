@@ -6,7 +6,7 @@ TestGfxBlit.c: test program to check custom RGBA blitter
 
 */
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #endif
 
@@ -17,16 +17,9 @@ TestGfxBlit.c: test program to check custom RGBA blitter
 
 #include "SDL.h"
 
-#ifdef WIN32
-#include <windows.h>
 #include "SDL_framerate.h"
 #include "SDL_gfxPrimitives.h"
 #include "SDL_gfxBlitFunc.h"
-#else
-#include "SDL/SDL_framerate.h"
-#include "SDL/SDL_gfxPrimitives.h"
-#include "SDL/SDL_gfxBlitFunc.h"
-#endif
 
 
 void HandleEvent()

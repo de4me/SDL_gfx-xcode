@@ -6,6 +6,10 @@ TestFramerate.c: test/sample program for framerate manager
 
 */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,15 +17,8 @@ TestFramerate.c: test/sample program for framerate manager
 #include <time.h>
 
 #include "SDL.h"
-
-#ifdef WIN32
-#include <windows.h>
 #include "SDL_framerate.h"
 #include "SDL_gfxPrimitives.h"
-#else
-#include "SDL/SDL_framerate.h"
-#include "SDL/SDL_gfxPrimitives.h"
-#endif
 
 #define WIDTH	640
 #define HEIGHT	480

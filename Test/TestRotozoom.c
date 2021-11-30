@@ -9,17 +9,13 @@ TestRotozoom.c: test program for rotozoom routines
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 #include "SDL.h"
-
-#ifdef WIN32
-#include <windows.h>
 #include "SDL_gfxPrimitives.h"
 #include "SDL_rotozoom.h"
-#else
-#include "SDL/SDL_gfxPrimitives.h"
-#include "SDL/SDL_rotozoom.h"
-#endif
 
 /* Pause flag */
 int pause = 0;

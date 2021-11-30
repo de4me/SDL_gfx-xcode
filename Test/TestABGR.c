@@ -6,6 +6,10 @@ TestABGR.c: test GFX behavior on byteordering
 
 */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,13 +17,7 @@ TestABGR.c: test GFX behavior on byteordering
 #include <time.h>
 
 #include "SDL.h"
-
-#ifdef WIN32
- #include <windows.h>
- #include "SDL_gfxPrimitives.h"
-#else
- #include "SDL/SDL_gfxPrimitives.h"
-#endif
+#include "SDL_gfxPrimitives.h"
 
 #define WIDTH	400
 #define HEIGHT	424

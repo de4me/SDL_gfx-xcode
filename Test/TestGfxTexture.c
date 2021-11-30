@@ -7,21 +7,18 @@ TestGfxTexture.c: test program for textured polygon routine
 
 */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 
 #include "SDL.h"
-
-#ifdef WIN32
-#include <windows.h>
 #include "SDL_gfxPrimitives.h"
 #include "SDL_framerate.h"
-#else
-#include "SDL/SDL_gfxPrimitives.h"
-#include "SDL/SDL_framerate.h"
-#endif
 
 void HandleEvent()
 {
