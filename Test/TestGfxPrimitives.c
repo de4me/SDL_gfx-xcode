@@ -2795,6 +2795,11 @@ void BenchmarkBezier(SDL_Surface *screen)
 
 /* ======== Main Program ======= */
 
+static void test_quit(void)
+{
+	SDL_Quit();
+}
+
 int main(int argc, char *argv[])
 {
 	const SDL_VideoInfo *info;
@@ -2814,7 +2819,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Couldn't initialize SDL: %s\n",SDL_GetError());
 		exit(1);
 	}
-	atexit(SDL_Quit);
+	atexit(test_quit);
 
 	/* Alpha blending doesn't work well at 8-bit color */
 	info = SDL_GetVideoInfo();

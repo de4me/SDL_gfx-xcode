@@ -129,6 +129,13 @@ void Draw(SDL_Surface *screen)
 	}
 }
 
+/* ======== */
+
+static void test_quit(void)
+{
+	SDL_Quit();
+}
+
 int main(int argc, char *argv[])
 {
 	SDL_Surface *screen;
@@ -144,7 +151,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Couldn't initialize SDL: %s\n",SDL_GetError());
 		exit(1);
 	}
-	atexit(SDL_Quit);
+	atexit(test_quit);
 
 	video_bpp = 32;
 	videoflags = SDL_SWSURFACE | SDL_SRCALPHA | SDL_RESIZABLE;

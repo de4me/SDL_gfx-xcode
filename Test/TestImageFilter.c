@@ -432,5 +432,5 @@ int main(int argc, char *argv[])
 	free(d);
 	free(t2);
 	free(t1);
-	exit(0);
+	return(0);
 }

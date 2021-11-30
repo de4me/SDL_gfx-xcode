@@ -325,6 +325,11 @@ void Draw (SDL_Surface *screen, char *bmpfile)
 	return;
 }
 
+static void quit_wrapper(void)
+{
+	SDL_Quit();
+}
+
 int main ( int argc, char *argv[] )
 {
 	SDL_Surface *screen;
@@ -385,7 +390,7 @@ int main ( int argc, char *argv[] )
 			"Couldn't initialize SDL: %s\n", SDL_GetError());
 		exit(1);
 	}
-	atexit(SDL_Quit);			/* Clean up on exit */
+	atexit(quit_wrapper);			/* Clean up on exit */
 
 	/* Initialize the display */
 	screen = SDL_SetVideoMode(w, h, desired_bpp, video_flags);

@@ -189,6 +189,11 @@ void Draw(SDL_Surface *screen)
 
 /* ======== */
 
+static void test_quit(void)
+{
+	SDL_Quit();
+}
+
 int main(int argc, char *argv[])
 {
 	SDL_Surface *screen;
@@ -263,7 +268,7 @@ int main(int argc, char *argv[])
 			"Couldn't initialize SDL: %s\n", SDL_GetError());
 		exit(1);
 	}
-	atexit(SDL_Quit);			/* Clean up on exit */
+	atexit(test_quit);		/* Clean up on exit */
 
 	/* Initialize the display */
 	screen = SDL_SetVideoMode(w, h, desired_bpp, video_flags);
