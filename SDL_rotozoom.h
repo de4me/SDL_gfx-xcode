@@ -65,6 +65,12 @@ extern "C" {
 #      define SDL_ROTOZOOM_SCOPE __declspec(dllimport)
 #    endif
 #  endif
+#elif defined(__OS2__)
+#  if defined(DLL_EXPORT) && !defined(LIBSDL_GFX_DLL_IMPORT)
+#    define SDL_ROTOZOOM_SCOPE __declspec(dllexport)
+#  else
+#    define SDL_ROTOZOOM_SCOPE   extern
+#  endif
 #endif
 #ifndef SDL_ROTOZOOM_SCOPE
 #  define SDL_ROTOZOOM_SCOPE extern

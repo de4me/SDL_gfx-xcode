@@ -54,6 +54,12 @@ extern    "C" {
 #      define SDL_GFXBLITFUNC_SCOPE __declspec(dllimport)
 #    endif
 #  endif
+#elif defined(__OS2__)
+#  if defined(DLL_EXPORT) && !defined(LIBSDL_GFX_DLL_IMPORT)
+#    define SDL_GFXBLITFUNC __declspec(dllexport)
+#  else
+#    define SDL_GFXBLITFUNC_SCOPE   extern
+#  endif
 #endif
 #ifndef SDL_GFXBLITFUNC_SCOPE
 #  define SDL_GFXBLITFUNC_SCOPE extern

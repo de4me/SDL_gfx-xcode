@@ -77,6 +77,12 @@ extern "C" {
 #      define SDL_FRAMERATE_SCOPE __declspec(dllimport)
 #    endif
 #  endif
+#elif defined(__OS2__)
+#  if defined(DLL_EXPORT) && !defined(LIBSDL_GFX_DLL_IMPORT)
+#    define SDL_FRAMERATE_SCOPE __declspec(dllexport)
+#  else
+#    define SDL_FRAMERATE_SCOPE   extern 
+#  endif
 #endif
 #ifndef SDL_FRAMERATE_SCOPE
 #  define SDL_FRAMERATE_SCOPE extern
