@@ -56,7 +56,7 @@ extern    "C" {
 #  endif
 #elif defined(__OS2__)
 #  if defined(DLL_EXPORT) && !defined(LIBSDL_GFX_DLL_IMPORT)
-#    define SDL_GFXBLITFUNC __declspec(dllexport)
+#    define SDL_GFXBLITFUNC_SCOPE __declspec(dllexport)
 #  else
 #    define SDL_GFXBLITFUNC_SCOPE   extern
 #  endif
