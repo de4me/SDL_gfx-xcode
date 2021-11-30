@@ -51,7 +51,7 @@ extern "C" {
 
 	/* ---- Function Prototypes */
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #  if defined(DLL_EXPORT) && !defined(LIBSDL_GFX_DLL_IMPORT)
 #    define SDL_GFXPRIMITIVES_SCOPE __declspec(dllexport)
 #  else
