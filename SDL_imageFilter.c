@@ -4096,10 +4096,10 @@ L10322:
 		"mov          %2, %%edx \n\t"	/* initialize ROWS counter */
 		"sub          $2, %%edx \n\t"	/* do not use first and last row */
 		/* --- */
-		".L10320:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
 		"sub          $2, %%ecx \n\t"	/* do not use first and last column */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10322:               \n\t"
+		"2:               \n\t"
 		/* --- */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the image first row */
 		"add       %%eax, %%esi \n\t"	/* move one row below */
@@ -4140,11 +4140,11 @@ L10322:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10322 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $2, %%esi \n\t"	/* move to the next row in Src */
 		"add          $2, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%edx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10320 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -4338,10 +4338,10 @@ L10332:
 		"mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $4, %%ebx \n\t"	/* do not use first 2 and last 2 rows */
 		/* --- */
-		".L10330:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $4, %%ecx \n\t"	/* do not use first 2 and last 2 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10332:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -4441,11 +4441,11 @@ L10332:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10332 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $4, %%esi \n\t"	/* move to the next row in Src */
 		"add          $4, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10330 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -4665,10 +4665,10 @@ L10342:
 		"add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $6, %%ebx \n\t"	/* do not use first 3 and last 3 rows */
 		/* --- */
-		".L10340:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $6, %%ecx \n\t"	/* do not use first 3 and last 3 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10342:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -4796,11 +4796,11 @@ L10342:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10342 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $6, %%esi \n\t"	/* move to the next row in Src */
 		"add          $6, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10340 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -5120,10 +5120,10 @@ L10352:
 		"add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $8, %%ebx \n\t"	/* do not use first 4 and last 4 rows */
 		/* --- */
-		".L10350:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $8, %%ecx \n\t"	/* do not use first 4 and last 4 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10352:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -5342,11 +5342,11 @@ L10352:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10352 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $8, %%esi \n\t"	/* move to the next row in Src */
 		"add          $8, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10350 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -5481,10 +5481,10 @@ L10362:
 		"mov          %2, %%edx \n\t"	/* initialize ROWS counter */
 		"sub          $2, %%edx \n\t"	/* do not use first and last row */
 		/* --- */
-		".L10360:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
 		"sub          $2, %%ecx \n\t"	/* do not use first and last column */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10362:               \n\t"
+		"2:               \n\t"
 		/* --- */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the image first row */
 		"add       %%eax, %%esi \n\t"	/* move one row below */
@@ -5517,11 +5517,11 @@ L10362:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10362 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $2, %%esi \n\t"	/* move to the next row in Src */
 		"add          $2, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%edx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10360 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -5714,10 +5714,10 @@ L10372:
 		"mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $4, %%ebx \n\t"	/* do not use first 2 and last 2 rows */
 		/* --- */
-		".L10370:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $4, %%ecx \n\t"	/* do not use first 2 and last 2 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10372:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -5816,11 +5816,11 @@ L10372:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10372 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $4, %%esi \n\t"	/* move to the next row in Src */
 		"add          $4, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10370 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -6043,10 +6043,10 @@ L10382:
 		"add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $6, %%ebx \n\t"	/* do not use first 3 and last 3 rows */
 		/* --- */
-		".L10380:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $6, %%ecx \n\t"	/* do not use first 3 and last 3 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10382:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -6177,11 +6177,11 @@ L10382:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10382 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $6, %%esi \n\t"	/* move to the next row in Src */
 		"add          $6, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10380 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -6517,10 +6517,10 @@ L10392:
 		"add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "add       %%eax, %%edi \n\t" "mov          %2, %%ebx \n\t"	/* initialize ROWS counter */
 		"sub          $8, %%ebx \n\t"	/* do not use first 4 and last 4 rows */
 		/* --- */
-		".L10390:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
+		"1:               \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMNS counter */
 		"sub          $8, %%ecx \n\t"	/* do not use first 4 and last 4 columns */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10392:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
+		"2:               \n\t" "pxor      %%mm7, %%mm7 \n\t"	/* zero MM7 (accumulator) */
 		"movd      %%esi, %%mm6 \n\t"	/* save ESI in MM6 */
 		/* --- 1 */
 		"movq    (%%esi), %%mm1 \n\t"	/* load 8 bytes of the Src */
@@ -6755,11 +6755,11 @@ L10392:
 		"inc              %%edi \n\t"	/* move Dest pointer to the next pixel */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10392 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"add          $8, %%esi \n\t"	/* move to the next row in Src */
 		"add          $8, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%ebx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10390 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -6924,12 +6924,12 @@ L10402:
 		"mov          %2, %%edx \n\t"	/* initialize ROWS counter */
 		"sub          $2, %%edx \n\t"	/* do not use first and last rows */
 		/* --- */
-		".L10400:                \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
+		"1:                \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
 		"shr          $3, %%ecx \n\t"	/* EBX/8 (MMX loads 8 bytes at a time) */
 		"mov       %%esi, %%ebx \n\t"	/* save ESI in EBX */
 		"movd      %%edi, %%mm1 \n\t"	/* save EDI in MM1 */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10402:               \n\t"
+		"2:               \n\t"
 		/* --- */
 		"movq    (%%esi), %%mm4 \n\t"	/* load 8 bytes from Src */
 		"movq      %%mm4, %%mm5 \n\t"	/* save MM4 in MM5 */
@@ -7007,13 +7007,13 @@ L10402:
 		"add $8,          %%edi \n\t"	/* move Dest pointer to the next 8 pixels */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10402 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"mov       %%ebx, %%esi \n\t"	/* restore most left current row Src  address */
 		"movd      %%mm1, %%edi \n\t"	/* restore most left current row Dest address */
 		"add       %%eax, %%esi \n\t"	/* move to the next row in Src */
 		"add       %%eax, %%edi \n\t"	/* move to the next row in Dest */
 		"dec              %%edx \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10400 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
@@ -7194,12 +7194,12 @@ L10412:
 		/* initialize ROWS counter */
 		"subl            $2, %2 \n\t"	/* do not use first and last rows */
 		/* --- */
-		".L10410:                \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
+		"1:                \n\t" "mov       %%eax, %%ecx \n\t"	/* initialize COLUMS counter */
 		"shr          $3, %%ecx \n\t"	/* EBX/8 (MMX loads 8 bytes at a time) */
 		"mov       %%esi, %%ebx \n\t"	/* save ESI in EBX */
 		"mov       %%edi, %%edx \n\t"	/* save EDI in EDX */
 		".align 16              \n\t"	/* 16 byte alignment of the loop entry */
-		".L10412:               \n\t"
+		"2:               \n\t"
 		/* --- */
 		"movq    (%%esi), %%mm4 \n\t"	/* load 8 bytes from Src */
 		"movq      %%mm4, %%mm5 \n\t"	/* save MM4 in MM5 */
@@ -7289,13 +7289,13 @@ L10412:
 		"add $8,          %%edi \n\t"	/* move Dest pointer to the next 8 pixels */
 		/* --- */
 		"dec              %%ecx \n\t"	/* decrease loop counter COLUMNS */
-		"jnz            .L10412 \n\t"	/* check loop termination, proceed if required */
+		"jnz            2b \n\t"	/* check loop termination, proceed if required */
 		"mov       %%ebx, %%esi \n\t"	/* restore most left current row Src  address */
 		"mov       %%edx, %%edi \n\t"	/* restore most left current row Dest address */
 		"add       %%eax, %%esi \n\t"	/* move to the next row in Src */
 		"add       %%eax, %%edi \n\t"	/* move to the next row in Dest */
 		"decl                %2 \n\t"	/* decrease loop counter ROWS */
-		"jnz            .L10410 \n\t"	/* check loop termination, proceed if required */
+		"jnz            1b \n\t"	/* check loop termination, proceed if required */
 		/* --- */
 		"emms                   \n\t"	/* exit MMX state */
 		"popa                   \n\t":"=m" (Dest)	/* %0 */
