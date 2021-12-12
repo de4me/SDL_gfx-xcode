@@ -60,6 +60,8 @@ extern    "C" {
 #  else
 #    define SDL_GFXBLITFUNC_SCOPE   extern
 #  endif
+#elif defined(SDLGFX_SYM_VISIBILITY)
+#    define SDL_GFXBLITFUNC_SCOPE __attribute__((visibility("default")))
 #endif
 #ifndef SDL_GFXBLITFUNC_SCOPE
 #  define SDL_GFXBLITFUNC_SCOPE extern
