@@ -5221,6 +5221,7 @@ int filledPolygonColorMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy
 	int *gfxPrimitivesPolyInts = NULL;
 	int *gfxPrimitivesPolyIntsNew = NULL;
 	int gfxPrimitivesPolyAllocated = 0;
+	char* tmp;
 
 	/*
 	* Check visibility of clipping rectangle
@@ -5267,17 +5268,23 @@ int filledPolygonColorMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy
 		gfxPrimitivesPolyAllocated = n;
 	} else {
 		if (gfxPrimitivesPolyAllocated < n) {
-			gfxPrimitivesPolyIntsNew = (int *) realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			tmp = realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			if (tmp == NULL)
+			{
+				return(-1);
+			}
+			gfxPrimitivesPolyIntsNew = (int*)tmp;
 			if (!gfxPrimitivesPolyIntsNew) {
 				if (!gfxPrimitivesPolyInts) {
 					free(gfxPrimitivesPolyInts);
 					gfxPrimitivesPolyInts = NULL;
 				}
 				gfxPrimitivesPolyAllocated = 0;
-			} else {
+			}
+			else {
 				gfxPrimitivesPolyInts = gfxPrimitivesPolyIntsNew;
 				gfxPrimitivesPolyAllocated = n;
-			}
+			}		
 		}
 	}
 
@@ -5598,6 +5605,7 @@ int texturedPolygonMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy, i
 	int ints;
 	int *gfxPrimitivesPolyInts = NULL;
 	int gfxPrimitivesPolyAllocated = 0;
+	char* tmp;
 
 	/*
 	* Check visibility of clipping rectangle
@@ -5634,7 +5642,12 @@ int texturedPolygonMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy, i
 		gfxPrimitivesPolyAllocated = n;
 	} else {
 		if (gfxPrimitivesPolyAllocated < n) {
-			gfxPrimitivesPolyInts = (int *) realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			tmp = realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			if (tmp==NULL)
+			{
+				return(-1);
+			}
+			gfxPrimitivesPolyInts = (int*)tmp;
 			gfxPrimitivesPolyAllocated = n;
 		}
 	}
