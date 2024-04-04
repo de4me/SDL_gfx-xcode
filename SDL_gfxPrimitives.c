@@ -5844,7 +5844,7 @@ void gfxPrimitivesSetFont(const void *fontdata, Uint32 cw, Uint32 ch)
 	int i;
 
 	if ((fontdata) && (cw) && (ch)) {
-		currentFontdata = fontdata;
+		currentFontdata = (const unsigned char *)fontdata;
 		charWidth = cw;
 		charHeight = ch;
 	} else {
