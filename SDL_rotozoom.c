@@ -828,8 +828,8 @@ SDL_Surface* rotateSurface90Degrees(SDL_Surface* src, int numClockwiseTurns)
 		return NULL;
 	}
 
-	if (SDL_MUSTLOCK(dst)) {
-		SDL_LockSurface(dst);
+	if (SDL_MUSTLOCK(src)) {
+		SDL_LockSurface(src);
 	}
 	if (SDL_MUSTLOCK(dst)) {
 		SDL_LockSurface(dst);
