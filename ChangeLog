@@ -1,6 +1,17 @@
 CHANGES/VERSION
 ===============
 
+Ver 2.0.27 - Sun, Dec 10, 2023  4:04:12 PM
+* Updated version numbers for next release
+* fixed printf bug in test program
+* fixed VS code analysis warnings
+* fixed rotozoom locking bug (thanks Dave)
+* fixed rotozoom colorkey bug (thanks Alberto)
+* updated VS2015 solution files to VS2022 solution files and rename
+* deprecated VS2008 and VS2010 solution files
+* updated .vcxproj files for SDL-1.2 source and release path
+* moved ChangeLog to solution items
+
 Ver 2.0.26 - Mon, Feb 20, 2017  8:31:57 PM
 * Updated version numbers for next release
 * Included patch for CMake builds against SDL2 (contributed by 

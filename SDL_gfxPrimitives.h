@@ -2,7 +2,7 @@
 
 SDL_gfxPrimitives.h: graphics primitives for SDL
 
-Copyright (C) 2001-2013  Andreas Schiffler
+Copyright (C) 2001-2023  Andreas Schiffler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -46,8 +46,7 @@ extern "C" {
 
 #define SDL_GFXPRIMITIVES_MAJOR	2
 #define SDL_GFXPRIMITIVES_MINOR	0
-#define SDL_GFXPRIMITIVES_MICRO	26
-
+#define SDL_GFXPRIMITIVES_MICRO	27
 
 	/* ---- Function Prototypes */
 
