@@ -6638,7 +6638,7 @@ void _murphyWideline(SDL_gfxMurphyIterator *m, Sint16 x1, Sint16 y1, Sint16 x2, 
 	float offset = (float)width / 2.f;
 
 	Sint16 temp;
-	Sint16 ptx, pty, ml1x, ml1y, ml2x, ml2y, ml1bx, ml1by, ml2bx, ml2by;
+	Sint16 ptx, pty, ml1x = 0, ml1y = 0, ml2x = 0, ml2y = 0, ml1bx = 0, ml1by = 0, ml2bx = 0, ml2by = 0;
 
 	int d0, d1;		/* difference terms d0=perpendicular to line, d1=along line */
 
