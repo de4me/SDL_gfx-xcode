@@ -1204,7 +1204,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			transformSurfaceY(rz_src, rz_dst, dstwidthhalf, dstheighthalf,
 				(int) (sanglezoominv), (int) (canglezoominv),
 				flipx, flipy);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		}
 		/*
 		* Unlock source surface 
@@ -1279,7 +1281,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			* Turn on source-alpha support 
 			*/
 			SDL_SetAlpha(rz_dst, SDL_SRCALPHA, 255);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		} else {
 			/*
 			* Copy palette and colorkey info 
@@ -1293,7 +1297,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			* Call the 8bit transformation routine to do the zooming 
 			*/
 			_zoomSurfaceY(rz_src, rz_dst, flipx, flipy);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		}
 
 		/*
