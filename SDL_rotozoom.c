@@ -2,7 +2,7 @@
 
 SDL_rotozoom.c: rotozoomer, zoomer and shrinker for 32bit or 8bit surfaces
 
-Copyright (C) 2001-2012  Andreas Schiffler
+Copyright (C) 2001-2023  Andreas Schiffler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -828,8 +828,8 @@ SDL_Surface* rotateSurface90Degrees(SDL_Surface* src, int numClockwiseTurns)
 		return NULL;
 	}
 
-	if (SDL_MUSTLOCK(dst)) {
-		SDL_LockSurface(dst);
+	if (SDL_MUSTLOCK(src)) {
+		SDL_LockSurface(src);
 	}
 	if (SDL_MUSTLOCK(dst)) {
 		SDL_LockSurface(dst);
@@ -1204,7 +1204,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			transformSurfaceY(rz_src, rz_dst, dstwidthhalf, dstheighthalf,
 				(int) (sanglezoominv), (int) (canglezoominv),
 				flipx, flipy);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		}
 		/*
 		* Unlock source surface 
@@ -1279,7 +1281,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			* Turn on source-alpha support 
 			*/
 			SDL_SetAlpha(rz_dst, SDL_SRCALPHA, 255);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		} else {
 			/*
 			* Copy palette and colorkey info 
@@ -1293,7 +1297,9 @@ SDL_Surface *rotozoomSurfaceXY(SDL_Surface * src, double angle, double zoomx, do
 			* Call the 8bit transformation routine to do the zooming 
 			*/
 			_zoomSurfaceY(rz_src, rz_dst, flipx, flipy);
-			SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			if (colorKeyAvailable) {
+				SDL_SetColorKey(rz_dst, SDL_SRCCOLORKEY | SDL_RLEACCEL, _colorkey(rz_src));
+			}
 		}
 
 		/*

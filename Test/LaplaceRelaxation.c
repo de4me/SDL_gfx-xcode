@@ -372,7 +372,7 @@ int main ( int argc, char *argv[] )
 				exit(1);
 			}
 		} else if (( strcmp(argv[1], "-help") == 0 ) || (strcmp(argv[1], "--help") == 0)) {
-			printf ("Usage:\n%s [options] filename\n");
+			printf ("Usage:\n%s [options] filename\n", argv[0]);
 			printf ("Options:\n");
 			printf (" -iterations #	  Number of relaxation iterations to perform, default: 400\n");
 			printf (" -contours #	  Number of contours over range, default: 8\n");

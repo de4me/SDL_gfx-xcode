@@ -136,16 +136,13 @@ the usual configure;make;make install sequence.
 
 A Win32 target is available (VisualC, mingw32, xmingw32 cross-compiler).
 
-VS2015 SP3
+VS2022
 
-- Download SDL sources for Windows from https://www.libsdl.org/download-1.2.php 
-- Place files into directory along the SDL_gfx source folder as SDL-1.2.15
-- Recompile SDL with VS2015
-- Open SDL_gfx_VS2015.sln
-
-Older solution versions (VS2010, VS2008) are also still included
-and should work with those versions, including express versions, after path 
-compiler and linker path adjustments.
+- Download SDL sources from https://github.com/libsdl-org/SDL-1.2
+- Place files into directory along the SDL_gfx source folder as "SDL-1.2" folder
+- Recompile SDL using VS2022 (note SDL's README for instructions of config file)
+- Open SDL_gfx.sln in VS2022 and recompile all
+- Manually copy the SDL.sll into the target folder of Test programs
 
 See "Other Builds" for additional makefiles (likely out of date, since not maintained).
 

@@ -2,7 +2,7 @@
 
 SDL_gfxPrimitives.c: graphics primitives for SDL surfaces
 
-Copyright (C) 2001-2012  Andreas Schiffler
+Copyright (C) 2001-2023  Andreas Schiffler
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -5221,6 +5221,7 @@ int filledPolygonColorMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy
 	int *gfxPrimitivesPolyInts = NULL;
 	int *gfxPrimitivesPolyIntsNew = NULL;
 	int gfxPrimitivesPolyAllocated = 0;
+	char* tmp;
 
 	/*
 	* Check visibility of clipping rectangle
@@ -5267,17 +5268,23 @@ int filledPolygonColorMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy
 		gfxPrimitivesPolyAllocated = n;
 	} else {
 		if (gfxPrimitivesPolyAllocated < n) {
-			gfxPrimitivesPolyIntsNew = (int *) realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			tmp = realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			if (tmp == NULL)
+			{
+				return(-1);
+			}
+			gfxPrimitivesPolyIntsNew = (int*)tmp;
 			if (!gfxPrimitivesPolyIntsNew) {
 				if (!gfxPrimitivesPolyInts) {
 					free(gfxPrimitivesPolyInts);
 					gfxPrimitivesPolyInts = NULL;
 				}
 				gfxPrimitivesPolyAllocated = 0;
-			} else {
+			}
+			else {
 				gfxPrimitivesPolyInts = gfxPrimitivesPolyIntsNew;
 				gfxPrimitivesPolyAllocated = n;
-			}
+			}		
 		}
 	}
 
@@ -5598,6 +5605,7 @@ int texturedPolygonMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy, i
 	int ints;
 	int *gfxPrimitivesPolyInts = NULL;
 	int gfxPrimitivesPolyAllocated = 0;
+	char* tmp;
 
 	/*
 	* Check visibility of clipping rectangle
@@ -5634,7 +5642,12 @@ int texturedPolygonMT(SDL_Surface * dst, const Sint16 * vx, const Sint16 * vy, i
 		gfxPrimitivesPolyAllocated = n;
 	} else {
 		if (gfxPrimitivesPolyAllocated < n) {
-			gfxPrimitivesPolyInts = (int *) realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			tmp = realloc(gfxPrimitivesPolyInts, sizeof(int) * n);
+			if (tmp==NULL)
+			{
+				return(-1);
+			}
+			gfxPrimitivesPolyInts = (int*)tmp;
 			gfxPrimitivesPolyAllocated = n;
 		}
 	}
@@ -5831,7 +5844,7 @@ void gfxPrimitivesSetFont(const void *fontdata, Uint32 cw, Uint32 ch)
 	int i;
 
 	if ((fontdata) && (cw) && (ch)) {
-		currentFontdata = fontdata;
+		currentFontdata = (const unsigned char *)fontdata;
 		charWidth = cw;
 		charHeight = ch;
 	} else {
@@ -6638,7 +6651,7 @@ void _murphyWideline(SDL_gfxMurphyIterator *m, Sint16 x1, Sint16 y1, Sint16 x2, 
 	float offset = (float)width / 2.f;
 
 	Sint16 temp;
-	Sint16 ptx, pty, ml1x, ml1y, ml2x, ml2y, ml1bx, ml1by, ml2bx, ml2by;
+	Sint16 ptx, pty, ml1x = 0, ml1y = 0, ml2x = 0, ml2y = 0, ml1bx = 0, ml1by = 0, ml2bx = 0, ml2by = 0;
 
 	int d0, d1;		/* difference terms d0=perpendicular to line, d1=along line */
 
