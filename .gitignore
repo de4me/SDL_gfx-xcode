@@ -1,0 +1,13 @@
+autom4te*
+config.cache
+config.log
+config.status
+Makefile
+libtool
+.deps
+.libs
+SDL_gfx.pc
+SDL_gfx.spec
+.DS_Store
+**/xcuserdata/
+
