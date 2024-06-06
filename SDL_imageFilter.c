@@ -57,7 +57,11 @@ him for his work.
 #pragma message("FIXME: do something about MMX code.")
 #endif
 
+#ifndef SDL_FRAMEWORK
 #include "SDL_cpuinfo.h"
+#else
+#include <SDL/SDL_cpuinfo.h>
+#endif
 #include "SDL_imageFilter.h"
 
 /*!

@@ -37,7 +37,11 @@ extern "C" {
 
 	/* --- */
 
+#ifndef SDL_FRAMEWORK
 #include "SDL.h"
+#else
+#include <SDL/SDL.h>
+#endif
 
 	/* --------- Definitions */
 
